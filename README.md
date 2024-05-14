@@ -5,5 +5,7 @@
 Продукт имеет следующие поля:
 
 -id
+
 -productName
+
 -amount
