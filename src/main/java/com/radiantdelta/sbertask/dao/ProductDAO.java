@@ -4,6 +4,7 @@ import com.radiantdelta.sbertask.domain.Product;
 import com.radiantdelta.sbertask.dto.ProductDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductDAO {
 

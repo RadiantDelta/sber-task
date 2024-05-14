@@ -25,10 +25,9 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
 
-        if (productService.existsById(id)) {
-            return ResponseEntity.ok(productService.findById(id));
-        }
-        return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(productService.findById(id));
+  
 
 
     }
@@ -44,24 +43,21 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable int id) {
-        if (productService.existsById(id)) {
+
             Product product = productService.findById(id);
 
             productService.deleteProduct(ProductDTO.from(product));
 
             return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
 
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> replaceProduct(@RequestBody Product newProduct, @PathVariable int id) {
-        if (productService.existsById(id)) {
+
             productService.replaceProduct(ProductDTO.from(newProduct), id);
             return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+
 
     }
 

@@ -2,11 +2,13 @@ package com.radiantdelta.sbertask.dao;
 
 import com.radiantdelta.sbertask.domain.Product;
 import com.radiantdelta.sbertask.dto.ProductDTO;
+import com.radiantdelta.sbertask.exception.ResourceNotFoundException;
 import com.radiantdelta.sbertask.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ProductDAOImpl implements ProductDAO{
@@ -25,7 +27,8 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public Product find(int id) {
-        return productRepository.findById(id);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not Found: " + id));
     }
 
     @Override
