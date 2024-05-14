@@ -1,5 +1,6 @@
 package com.radiantdelta.sbertask.service;
 
+import com.radiantdelta.sbertask.dao.ProductDAO;
 import com.radiantdelta.sbertask.domain.Product;
 import com.radiantdelta.sbertask.dto.ProductDTO;
 import com.radiantdelta.sbertask.repository.ProductRepository;
@@ -11,46 +12,47 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
+    private ProductDAO productDAO;
+    @Autowired
     private ProductRepository productRepository;
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productDAO.findAll();
     }
 
 
     @Override
     public Boolean existsById(int id) {
-        return productRepository.existsById(id);
+        return productDAO.exists(id);
     }
 
     @Override
     public Product findById(int id) {
-        return productRepository.findById(id);
+        return productDAO.find(id);
     }
 
     @Override
     public int createProduct(ProductDTO productDTO) {
-        Product product = productDTO.toProduct();
-        productRepository.save(product);
+        productDAO.save(productDTO);
         return productDTO.getId();
     }
 
     @Override
     public void deleteProduct(ProductDTO productDTO) {
-        productRepository.delete(productDTO.toProduct());
+        productDAO.delete(productDTO);
 
     }
 
     @Override
     public void replaceProduct(ProductDTO newProductDTO, int id) {
-        Product updateProduct = productRepository.findById(id);
+        Product updateProduct = productDAO.find(id);
 
         updateProduct.setProductName(newProductDTO.getProductName());
         updateProduct.setId(newProductDTO.getId());
         updateProduct.setAmount(newProductDTO.getAmount());
 
-        productRepository.save(updateProduct);
+        productDAO.save(ProductDTO.from(updateProduct));
     }
 
 }
