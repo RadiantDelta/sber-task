@@ -3,11 +3,13 @@ package com.radiantdelta.sbertask.controller;
 import com.radiantdelta.sbertask.domain.Product;
 import com.radiantdelta.sbertask.dto.ProductDTO;
 import com.radiantdelta.sbertask.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping()
@@ -56,6 +58,7 @@ public class ProductController {
     public ResponseEntity<String> replaceProduct(@RequestBody Product newProduct, @PathVariable int id) {
 
             productService.replaceProduct(ProductDTO.from(newProduct), id);
+
             return ResponseEntity.ok().build();
 
 

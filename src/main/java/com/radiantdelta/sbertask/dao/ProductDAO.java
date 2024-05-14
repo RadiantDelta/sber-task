@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface ProductDAO {
 
     List<Product> findAll();
-    Boolean exists(int id);
     Product find(int id);
     void save(ProductDTO productDTO);
     void delete(ProductDTO productDTO);

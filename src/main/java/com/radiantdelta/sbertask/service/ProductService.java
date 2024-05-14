@@ -16,7 +16,7 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-    Boolean existsById(int id);
+
     Product findById(int id);
 
 }
