@@ -3,6 +3,11 @@ package com.radiantdelta.sbertask.dto;
 import com.radiantdelta.sbertask.domain.Product;
 import lombok.Data;
 
+/**
+ *DTO is an object used to transfer data between different layers or components of an application.
+ * It encapsulates data and provides a standardized way of exchanging information between different parts of the system
+ *
+ */
 @Data
 public class ProductDTO {
     private int id;
