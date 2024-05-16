@@ -53,12 +53,10 @@ public class ProductController {
     public ResponseEntity createProduct(@RequestBody Product product) {
         log.info("request body product id : " +product.getId());
         Product result = productService.createProduct(ProductDTO.from(product));
-     if(result.getId() != product.getId()){
+
          return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-     }
-     else {
-         return new ResponseEntity(URI.create("/" + result.getId()), HttpStatus.SEE_OTHER);
-     }
+
+
 
     }
 

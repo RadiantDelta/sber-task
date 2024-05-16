@@ -55,31 +55,7 @@ class ProductControllerTest {
                 .andExpect(status().isNoContent())
                 .andReturn();
     }
-    @Test
-    public void seeOther() throws Exception {
-        Product p1 = mockProduct("create");
-        log.info(p1.getId() + " Original id");
-        byte[] p1Json = toJson(p1);
-        MvcResult result = mvc.perform(post("/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(p1Json)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        int id = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class).getId();
-
-        Product p2 = mockProduct("seeOther");
-        p2.setId(id);
-        byte[] p2Json = toJson(p2);
-        MvcResult result2 = mvc.perform(post("/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(p2Json)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isSeeOther())
-                .andReturn();
-    }
+    
     @Test
     public void createGetDelete() throws Exception {
         Product p1 = mockProduct("createAndGetAndDelete");
