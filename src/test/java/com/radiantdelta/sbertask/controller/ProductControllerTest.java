@@ -55,7 +55,7 @@ class ProductControllerTest {
                 .andExpect(status().isNoContent())
                 .andReturn();
     }
-    
+
     @Test
     public void createGetDelete() throws Exception {
         Product p1 = mockProduct("createAndGetAndDelete");
