@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.net.URISyntaxException;
+
 /**
  * Handling exceptions
  */
@@ -17,10 +19,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        logger.info("ResourceNotFoundException handled, msg: "+ ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<String> handleNoContentException(NoContentException ex) {
+        logger.info("NoContentException handled, msg: "+ ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(ex.getMessage());
     }
 
     @ExceptionHandler(BadRequestException.class)
@@ -31,6 +33,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         logger.info("DataIntegrityViolationException handled, msg: "+ ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(URISyntaxException.class)
+    public ResponseEntity<String> handleURISyntaxException(URISyntaxException ex) {
+        logger.info("URISyntaxException handled, msg: "+ ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

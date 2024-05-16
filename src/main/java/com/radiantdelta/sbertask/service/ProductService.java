@@ -13,9 +13,9 @@ public interface ProductService {
     /**
      * Saves a given entity
      * @param productDTO entity which is to be saved
-     * @return id of saved entity
+     * @return saved entity
      */
-    int createProduct(ProductDTO productDTO);
+    Product createProduct(ProductDTO productDTO);
 
     /**
      * Deletes a given entity
@@ -29,8 +29,9 @@ public interface ProductService {
      * id in param and id in newProductDTO must be the same
      * @param newProductDTO new entity instead of previous
      * @param id identificator of previous and new entity
+     * @return  Product
      */
-    void replaceProduct( ProductDTO newProductDTO,  int id);
+    Product replaceProduct( ProductDTO newProductDTO,  int id);
 
     /**
      *  Returns all instances of Product

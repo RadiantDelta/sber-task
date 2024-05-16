@@ -34,11 +34,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int createProduct(ProductDTO productDTO) {
+    public Product createProduct(ProductDTO productDTO) {
         log.info("productDAO.save(productDTO) called");
-        productDAO.save(productDTO);
-
-        return productDTO.getId();
+        log.info("DTO IN SERVICE ID " + productDTO.getId());
+        productDTO = productDAO.save(productDTO);
+        log.info("DTO IN SERVICE ID AFTER SAVE " + productDTO.getId());
+        return productDTO.toProduct();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void replaceProduct(ProductDTO newProductDTO, int id) {
+    public Product replaceProduct(ProductDTO newProductDTO, int id) {
         log.info("productDAO.find(id) called");
         Product updateProduct = productDAO.find(id);
 
@@ -58,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
         updateProduct.setAmount(newProductDTO.getAmount());
 
         log.info("productDAO.save(ProductDTO.from(updateProduct)) called");
-        productDAO.save(ProductDTO.from(updateProduct));
+        return productDAO.save(ProductDTO.from(updateProduct)).toProduct();
 
     }
 

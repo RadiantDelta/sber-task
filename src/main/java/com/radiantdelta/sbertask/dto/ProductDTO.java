@@ -22,6 +22,10 @@ public class ProductDTO {
         return productDTO;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public Product toProduct() {
         Product product = new Product();
         product.setId(this.id);

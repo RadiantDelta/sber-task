@@ -14,7 +14,7 @@ import java.util.Optional;
  * Set of methods to manipulate Products
  */
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Long> {
+public interface ProductRepository extends CrudRepository<Product, Integer> {
     /**
      * Returns all entities of Product
      * @return all entities
@@ -40,5 +40,13 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
      *           present but does not exist in the database.
      */
     void delete(Product product);
+    /**
+     * Saves a given Product.
+     * @return saved entity
+     * @param product must not be {@literal null}.
+     *
+     */
+    Product save(Product product);
 
+    void flush();
 }

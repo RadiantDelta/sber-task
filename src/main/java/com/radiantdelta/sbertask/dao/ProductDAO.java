@@ -27,8 +27,9 @@ public interface ProductDAO {
     /**
      * Saves a given entity
      * @param productDTO entity which will be saved
+     * @return  saved product
      */
-    void save(ProductDTO productDTO);
+    ProductDTO save(ProductDTO productDTO);
 
     /**Deletes a given entity
      *

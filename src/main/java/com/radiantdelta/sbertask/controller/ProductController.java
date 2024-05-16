@@ -3,14 +3,17 @@ package com.radiantdelta.sbertask.controller;
 import com.radiantdelta.sbertask.domain.Product;
 import com.radiantdelta.sbertask.dto.ProductDTO;
 import com.radiantdelta.sbertask.service.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping()
 public class ProductController {
@@ -34,21 +37,28 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
-
-        return ResponseEntity.ok(productService.findById(id));
+        Product p = productService.findById(id);
+        return (p == null) ? (ResponseEntity<Product>) ResponseEntity.noContent() : ResponseEntity.ok(p);
 
 
     }
 
     /**
      *  Handles creation of new Product
-     * @param productDTO the details of Product to be created
-     * @return id of saved Product
+     * @param product the details of Product to be created
+     * @return  Product or redirect
      */
     @PostMapping
-    public int createProduct(@RequestBody ProductDTO productDTO) {
-
-        return productService.createProduct(productDTO);
+    @Transactional
+    public ResponseEntity createProduct(@RequestBody Product product) {
+        log.info("request body product id : " +product.getId());
+        Product result = productService.createProduct(ProductDTO.from(product));
+     if(result.getId() != product.getId()){
+         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+     }
+     else {
+         return new ResponseEntity(URI.create("/" + result.getId()), HttpStatus.SEE_OTHER);
+     }
 
     }
 
@@ -70,17 +80,18 @@ public class ProductController {
     }
 
     /**
-     *
+     * Handles updating of Product with specific id
      * @param newProduct which takes place of previous Product
      * @param id of previous and new Product
-     * @return a {@link ResponseEntity} with the  HTTP status code
+     * @return updated Product with the  HTTP status code
      */
     @PutMapping("/{id}")
-    public ResponseEntity<String> replaceProduct(@RequestBody Product newProduct, @PathVariable int id) {
+    @Transactional
+    public ResponseEntity<Product> replaceProduct(@RequestBody Product newProduct, @PathVariable int id) {
 
-            productService.replaceProduct(ProductDTO.from(newProduct), id);
+           Product result = productService.replaceProduct(ProductDTO.from(newProduct), id);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(result);
 
 
     }

@@ -3,12 +3,12 @@ package com.radiantdelta.sbertask.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
+
 @Table(name = "product")
+@Entity
 public class Product {
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
     private String productName;
