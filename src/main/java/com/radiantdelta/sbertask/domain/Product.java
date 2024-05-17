@@ -1,6 +1,7 @@
 package com.radiantdelta.sbertask.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -10,8 +11,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotNull
     @Column(nullable = false)
     private String productName;
+    @NotNull
     @Column(nullable = false)
     private int amount;
 
