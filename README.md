@@ -21,3 +21,7 @@ $ cd sber-task
 $ docker-compose up -d
 ```
 
+---
+Добавлен Swagger
+
+To do: - Добавить swagger в docker
