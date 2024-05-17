@@ -35,7 +35,7 @@ public class ProductController {
      * @param id id of Product to be retrieved
      * @return The Product with specific id from the database
      */
-    @GetMapping("/{id}")
+    @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
         Product p = productService.findById(id);
         return (p == null) ? (ResponseEntity<Product>) ResponseEntity.noContent() : ResponseEntity.ok(p);

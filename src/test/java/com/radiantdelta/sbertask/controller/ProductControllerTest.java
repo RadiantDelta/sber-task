@@ -49,7 +49,7 @@ class ProductControllerTest {
 
     @Test
     public void getNotExisted() throws Exception {
-        mvc.perform(get("/1")
+        mvc.perform(get("/product/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
@@ -75,7 +75,7 @@ class ProductControllerTest {
 
         log.info("response id of created Product is "+id);
         // GET
-        MvcResult result2 = mvc.perform(get("/" + id)
+        MvcResult result2 = mvc.perform(get("/product/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -124,7 +124,7 @@ class ProductControllerTest {
                 .andReturn();
 
         //GET updated
-        mvc.perform(get("/" + id)
+        mvc.perform(get("/product/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is((int) id)))
